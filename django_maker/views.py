@@ -46,6 +46,11 @@ def save(request, project_id):
 
 def make(request, project_id):
 #    subprocess.run(command_run_make_cont.format(bin_string=bin_string, project_id=project_id).split(), env=my_env)
+    filename = "../configs/" + project_id + ".txt"
+    file = open(filename, "w")
+    file.write(proj.con_001)
+    file.close()
+    subprocess.run(command_run_make_cont.format(bin_string="../scripts/", project_id=project_id).split(), env=my_env)
     return JsonResponse({'ran': True})
 
 def view(request, project_id):
@@ -54,5 +59,5 @@ def view(request, project_id):
     return proxy_view(request, remoteurl)
 
 def kill(request, project_id):
-    proj = Play_Project.objects.get(usique_id=project_id)
+    subprocess.run(command_run_del_cont.format(bin_string="../scripts/", project_id=project_id).split(), env=my_env)
 #    subprocess.run(command_run_del_cont.format(bin_string=bin_string, project_id=project_id).split(), env=my_env)
