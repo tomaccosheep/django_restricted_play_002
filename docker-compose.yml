@@ -1,0 +1,21 @@
+version: '3'
+services:
+  drp_db:
+    build: mysql/
+    networks:
+      - "app"
+    ports:
+      - "3306:3306"
+  drp:
+    build: ./
+    depends_on:
+      - drp_db
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    networks:
+      - "app"
+    ports:
+      - "8000:8000"
+
+networks:
+  app:
